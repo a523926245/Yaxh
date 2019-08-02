@@ -1,0 +1,88 @@
+/**
+ * Entry of all component's style
+ */
+/* base */
+/**
+ * Entry of basic styles
+ */
+/**
+ * Normalize
+ */
+ html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+  a:focus,
+  input:focus,
+  button:focus,
+  textarea:focus,
+  [class*='van-']:focus {
+    outline: none;
+  }
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  input,
+  button,
+  textarea {
+    color: inherit;
+    font: inherit;
+  }
+  .van-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .van-clearfix::after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+  [class*='van-hairline'] {
+    position: relative;
+  }
+  [class*='van-hairline']::after {
+    position: absolute;
+    box-sizing: border-box;
+    content: ' ';
+    pointer-events: none;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border: 0 solid #ebedf0;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  .van-hairline--top::after {
+    border-top-width: 1px;
+  }
+  .van-hairline--left::after {
+    border-left-width: 1px;
+  }
+  .van-hairline--right::after {
+    border-right-width: 1px;
+  }
+  .van-hairline--bottom::after {
+    border-bottom-width: 1px;
+  }
+  .van-hairline--top-bottom::after {
+    border-width: 1px 0;
+  }
+  .van-hairline--surround::after {
+    border-width: 1px;
+  }
+/* 自动换行 */
+.van-ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+} 
