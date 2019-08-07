@@ -28,6 +28,7 @@ export default {
         navbar,
         cell
     },
+    inject:['reload'],
     data(){
         return {
             title:"关于我们",
@@ -68,6 +69,7 @@ export default {
                 .then(res =>{
                     console.log(res)
                     this.result = res.data.result.info;
+                    this.reload();
                 })
                 .catch(err =>{
                     console.log(err)

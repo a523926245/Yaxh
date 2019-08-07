@@ -4,7 +4,7 @@
     <!-- <navbar :title="titleTxt" left-text="返回" right-text="新增" @left-click="clickLeft" @right-click="clickRight"></navbar> -->
 
     <div>
-        <router-view></router-view>
+        <router-view v-if="isRouterAlive"></router-view>
     </div>
 
     <tabbar :list="bottomMenu" :active=0 @click="clickTabbar"></tabbar>
@@ -19,8 +19,14 @@ export default {
     navbar,
     tabbar
   },
+  provide(){
+    return {
+      reload : this.reload
+    }
+  },
    data(){
      return{
+       isRouterAlive:true,
        msg:"主页",
        titleTxt:"改变标题",
        bottomMenu:[
@@ -58,6 +64,12 @@ export default {
      },
      clickTabbar(e){
        console.log(e)
+     },
+     reload(){
+       this.isRouterAlive = false;
+       this.$nextTick(() =>{
+         this.isRouterAlive = true
+       })
      }
    }
 }
