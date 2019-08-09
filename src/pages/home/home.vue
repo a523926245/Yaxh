@@ -12,13 +12,12 @@
             </swiper-cell>
            </template>
         </div>
-        
     </div>
 </template>
 
 <script>
 import navbar from "@/components/navbar/navbar";
-import swiperCell from "@/components/swiper_cell/swiper_cell";3
+import swiperCell from "@/components/swiper_cell/swiper_cell";
 import cell from "@/components/cell/cell";
 export default {
     name:"home",
@@ -35,6 +34,10 @@ export default {
         }
     },
     mounted(){
+     this.$toast({
+        message:"哈哈哈哈",
+        icon:"success"
+     })
      this.$http('get',"/start",{})
      .then(res =>{
        console.log(res)

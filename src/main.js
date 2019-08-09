@@ -5,6 +5,10 @@ import store from './store';
 import httpRequest from "./utils/httpRequest.js";
 import publicMixin from "./mixin/mixin";
 
+import Toast from "./components/toast/index.js";
+
+Vue.prototype.$toast = Toast;
+
 Vue.config.productionTip = false;
 // 混入全局
 Vue.mixin(publicMixin)
