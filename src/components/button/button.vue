@@ -17,12 +17,19 @@
 
 <script>
 export default {
-    
+/**
+ * yButton
+ * @module components/button
+ * @param {string} [size] - 按钮尺寸:可选large,small,normal,mini
+ * @param {Boolean} [disabled] - 是否禁用点击
+ * @param {string} [icon] - icon图标样式名
+ * @param {String} [text] - 按钮value值
+ * @param {Boolean} [plain] - 是否简约风格，白底有色边框模式
+ * @param {Boolean} [round] - 按钮是否圆角
+ */
     name:"yButton",
     props:{
-        
         size:String,
-        block:Boolean,
         disabled:Boolean,
         icon:String,
         type:{
