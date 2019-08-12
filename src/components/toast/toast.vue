@@ -1,10 +1,10 @@
 <template>
-    <div>
-      <div v-if="isShow" class="van-toast van-toast--middle" :class="[icon ? ''  : 'van-toast--text',isShow ? 'animation__fadeIn' : 'animation__fadeOut']">
+    <div v-if="isShow">
+      <div v-if="isShow" class="y-toast y-toast--middle" :class="[icon ? ''  : 'y-toast--text',isShow ? 'animation__fadeIn' : 'animation__fadeOut']">
           <i v-if="icon" class="yui__icon" :class="'yui__icon_' + icon">{{icon}}</i>
-          <div class="van-toast__text">{{message}}</div>
+          <div class="y-toast__text">{{message}}</div>
       </div>
-      <div v-if="mask" class="van__mask"></div>
+      <div v-if="mask" class="y__mask"></div>
     </div>
 </template>
 
@@ -19,27 +19,13 @@ export default {
         isShow:false,
         duration:3000,
       }
-    },
+    }
 }
 </script>
 
 <style lang="less">
-// .fade-enter-active,.fade-leave-active {
-//   transition: opacity 3s
-// }
-// .fade-enter,.fade-leave-to{
-//   opacity: 0
-// }
-.van__mask{
-  position: fixed;
-  left:0;
-  top:0;
-  right:0;
-  bottom:0;
-  background: rgba(0,0,0,0.1);
-  z-index:2
-}
-.van-toast{
+
+.y-toast{
   z-index:999;
   position: fixed;
   top: 50%;
@@ -50,7 +36,6 @@ export default {
   justify-content: center;
   box-sizing: content-box;
 
-  // hack for avoid max-width when use left & fixed
   width: 90px;
   max-width:70%;
   min-height:90px;
@@ -59,7 +44,6 @@ export default {
   font-size:14px;
   line-height:20px;
 
-  // allow newline charactor
   white-space: pre-wrap;
   text-align: center;
   word-break: break-all;
@@ -73,8 +57,6 @@ export default {
     animation: fadeOut 1s 1 forwards
   }
 
-  // should not add pointer-events: none directly to body tag
-  // that will cause unexpected tap-highlight-color in mobile safari
   &--unclickable {
     * {
       pointer-events: none;
@@ -87,7 +69,7 @@ export default {
     min-height: unset;
     padding: 8px 12px;
 
-    .van-toast__text {
+    .y-toast__text {
       margin-top: 0;
     }
   }

@@ -7,17 +7,17 @@
         <router-view v-if="isRouterAlive"></router-view>
     </div>
 
-    <tabbar :list="bottomMenu" :active=0 @click="clickTabbar"></tabbar>
+    <y-tabbar :list="bottomMenu" :active=0 @click="clickTabbar"></y-tabbar>
   </div>
 </template>
 
 <script>
-import navbar from "@/components/navbar/navbar";
-import tabbar from "@/components/tabbar/tabbar";
+import yNavbar from "@/components/navbar/navbar";
+import yTabbar from "@/components/tabbar/tabbar";
 export default {
   components:{
-    navbar,
-    tabbar
+    yNavbar,
+    yTabbar
   },
   provide(){
     return {

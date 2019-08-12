@@ -1,30 +1,38 @@
 <template>
     <div class="page">
-        <navbar :title="title"></navbar>
+        <y-navbar :title="title"></y-navbar>
         <div class="content">
           <template v-for="(item,index) in result" :index="index">
-            <swiper-cell :key="index" :index="index">
-                <cell :title="item.name" :value="item.url"></cell>
+            <y-swiper-cell :key="index" :index="index">
+                <y-cell :title="item.name" :value="item.url"></y-cell>
                 <div slot="right">
                     <span class="edit" @click="clickEdit">修改</span>
                     <span class="delete" @click="clickDelete(item.id)">删除</span>
                 </div>
-            </swiper-cell>
+            </y-swiper-cell>
            </template>
+           <y-cell>
+             <y-button type="info" plain>周星星</y-button>
+           </y-cell>
         </div>
+        <!-- <ydialog title="doalog标题"></ydialog> -->
     </div>
 </template>
 
 <script>
-import navbar from "@/components/navbar/navbar";
-import swiperCell from "@/components/swiper_cell/swiper_cell";
-import cell from "@/components/cell/cell";
+import yDialog from "@/components/dialog/dialog"
+import yNavbar from "@/components/navbar/navbar";
+import ySwiperCell from "@/components/swiper_cell/swiper_cell";
+import yCell from "@/components/cell/cell";
+import yButton from "@/components/button/button"
 export default {
     name:"home",
     components:{
-        navbar,
-        swiperCell,
-        cell
+        yNavbar,
+        ySwiperCell,
+        yCell,
+        yDialog,
+        yButton
     },
     inject:['reload'],
     data(){
@@ -35,11 +43,7 @@ export default {
     },
     mounted(){
      this.$toast({
-        message:"哈哈哈哈1",
-        icon:"success"
-     })
-     this.$toast({
-        message:"哈哈哈哈2",
+        message:"哈哈哈哈",
         icon:"success"
      })
      this.$http('get',"/start",{})

@@ -32,8 +32,9 @@
  * @param {slot} [title] - 同 title, 会覆盖 title 属性
  * @param {slot} [icon] - 同 icon, 会覆盖 icon 属性，例如可以传入图片
  */
-name:"cell"
+
 export default {
+    name:"yCell",
     props:{
         // cell标题
         title:String,

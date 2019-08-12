@@ -21,7 +21,7 @@
 </template>
 <script>
 export default {
-  name: 'navBar',
+  name: 'yNavbar',
   inheritAttrs: false,
   props: {
     title:{

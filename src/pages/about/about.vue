@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <navbar :title="title" @left-click="backRouter" @right-click="addInfo" left-text="返回" right-text="新增"></navbar>
+        <y-navbar :title="title" @left-click="backRouter" @right-click="addInfo" left-text="返回" right-text="新增"></y-navbar>
         <div class="content">
             <template v-for="(item,index) in result" :index="index" @click="changeInfo(item.id)">
               <cell @click="changeInfo(item.id)" 
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import navbar from "@/components/navbar/navbar";
-import cell from "@/components/cell/cell";
+import yNavbar from "@/components/navbar/navbar";
+import yCell from "@/components/cell/cell";
 export default {
     name:"about",
     components:{
-        navbar,
-        cell
+        yNavbar,
+        yCell
     },
     inject:['reload'],
     data(){

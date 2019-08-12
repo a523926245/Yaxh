@@ -17,6 +17,7 @@
 
 <script>
 export default {
+    name:"yTabbar",
     props:{
         list:{
             type:[Array,Object],
@@ -47,7 +48,6 @@ export default {
         },
         active:Number
     },
-    name:"tabBar",
     data(){
         return{
             activeNav:this.active

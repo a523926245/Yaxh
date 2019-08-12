@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <navbar :title="title" @left-click="backRouter" left-text="返回"></navbar>.
+        <y-navbar :title="title" @left-click="backRouter" left-text="返回"></y-navbar>.
         <div class="content">
             <div class="cell">
               <label for="">name:</label><input type="text" v-model="formData.name">
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import navbar from "@/components/navbar/navbar";
+import yNavbar from "@/components/navbar/navbar";
 import { setTimeout } from 'timers';
 export default {
     name:"submit",
     components:{
-        navbar
+        yNavbar
     },
     data(){
         return {

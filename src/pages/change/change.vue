@@ -1,6 +1,6 @@
 <template>
     <div class="page">
-        <navbar :title="title" left-text="返回" @left-click="backRouter"></navbar>.
+        <y-navbar :title="title" left-text="返回" @left-click="backRouter"></y-navbar>.
         <div class="content">
             <div class="cell">
               <label for="">name:</label><input type="text" v-model="formData.name">
@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import navbar from "@/components/navbar/navbar";
+import yNavbar from "@/components/navbar/navbar";
 export default {
     name:"change",
     components:{
-        navbar
+        yNavbar
     },
     data(){
         return {

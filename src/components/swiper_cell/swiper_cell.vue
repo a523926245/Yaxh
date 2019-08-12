@@ -16,7 +16,7 @@
 
 <script>
 import cell from "@/components/cell/cell";
-name:"swiperCell"
+name:"ySwiperCell"
 export default {
     components:{
         cell
