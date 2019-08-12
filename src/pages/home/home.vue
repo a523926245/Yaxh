@@ -35,7 +35,11 @@ export default {
     },
     mounted(){
      this.$toast({
-        message:"哈哈哈哈",
+        message:"哈哈哈哈1",
+        icon:"success"
+     })
+     this.$toast({
+        message:"哈哈哈哈2",
         icon:"success"
      })
      this.$http('get',"/start",{})

@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import {isObj} from "@/utils/utils";
-import vueTostComponent from "./toast.vue";
+import { isObj } from "@/utils/utils";
+import vueTostComponent from "./toast";
 const defaultOptions = {
     icon:'',
     mask:false,
@@ -15,10 +15,14 @@ const toastConstructor  = Vue.extend(vueTostComponent)
 
 // 实例化toast组件
 function createInstance(){
-    const toast = new toastConstructor({
-        el:document.createElement('div')
-    })
-    return toast
+    // 同时出现多个toast只取最后1个
+    if(!queue.length){
+        const toast = new toastConstructor({
+            el:document.createElement('div')
+        })
+        queue.push(toast)
+    }
+    return queue[queue.length - 1]
 }
 // 处理toast参数
 function transformOptions(options) {
