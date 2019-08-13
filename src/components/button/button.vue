@@ -6,7 +6,8 @@
     ,plain ? 'y-button--plain' : ''
     ,disabled ? 'y-button--disabled' : ''
     ,size ? 'y-button--'+size : 'y-button--normal']" 
-    :value="text">
+    :value="text"
+    @click="clickEvent">
     <span v-if="$slots.default || text" class="y-button__text">
         <slot>
             <span class="y-button__text">{{text}}</span>
@@ -53,6 +54,11 @@ export default {
         return{
 
         }
+    },
+    methods:{
+      clickEvent(e){
+        this.$emit('click',e)
+      }
     }
 }
 </script>
