@@ -1,24 +1,29 @@
 <template>
-    <div class="y-dialog">
-        <div class="y-dialog__header">标题</div>
+    <div class="y-dialog" v-show="isShow">
+        <div class="y-dialog__header">{{title}}</div>
         <div class="y-dialog__content">
-            <div class="y-dialog__message y-dialog__message--has-title">代码是写出来给人看的，附带能在机器上运行</div>
+            <div class="y-dialog__message y-dialog__message--has-title">{{content}}</div>
         </div>
         <div class="y-hairline--top y-dialog__footer y-dialog__footer--buttons">
-            <y_button>取消</y_button>
-            <y_button>确认</y_button>
+            <y-button size="large" v-if="showCancelButton" @click="handleAction('cancel')">{{cancelText}}</y-button>
+            <y-button size="large" @click="handleAction('confirm')">{{confirmText}}</y-button>
         </div>
     </div>
 </template>
 
 <script>
 import yButton from "@/components/button/button";
+import { type } from 'os';
 export default {
     name:"yDialog",
     components:{
         yButton
     },
     props:{
+        isShow:{
+          type:Boolean,
+          default:false
+        },
         title:String,
         content:String,
         beforeClose:Function,
@@ -36,6 +41,29 @@ export default {
         return{
 
         }
+    },
+    methods:{
+      // 点击事件触发器
+      handleAction(action){
+        this.$emit(action)
+        if(this.beforeClose){
+          // dialog关闭拦截器
+          this.beforeClose(action,state =>{
+            if(state !== false){
+              this.onClose(action)
+            }
+          })
+        }else{
+          this.onClose(action)
+        }
+      },
+      // 关闭dialog
+      onClose(action){
+        this.isShow = false
+        if(this.callback){
+          this.callback(action)
+        }
+      }
     }
 }
 </script>
