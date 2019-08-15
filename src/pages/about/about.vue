@@ -3,7 +3,7 @@
         <y-navbar :title="title" @left-click="backRouter" @right-click="addInfo" left-text="返回" right-text="新增"></y-navbar>
         <div class="content">
             <template v-for="(item,index) in result" :index="index" @click="changeInfo(item.id)">
-              <cell @click="changeInfo(item.id)" 
+              <y-cell @click="changeInfo(item.id)" 
               :key="index" 
               :label="`${item.alexa} ${item.country}`" 
               :title="item.name" 
@@ -13,7 +13,7 @@
               isLink 
               icon="-icon-" >
                 <!-- <div>{{item.url}}</div> -->
-              </cell>
+              </y-cell>
             </template>
         </div>
     </div>

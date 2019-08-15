@@ -5,9 +5,11 @@ import store from './store';
 import httpRequest from "./utils/httpRequest.js";
 import publicMixin from "./mixin/mixin";
 
-import Toast from "./components/toast/index.js";
+import Toast from "./components/toast";
+import Dialog from "./components/dialog"
 
 Vue.prototype.$toast = Toast;
+Vue.prototype.$dialog = Dialog;
 
 Vue.config.productionTip = false;
 // 混入全局
