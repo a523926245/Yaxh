@@ -12,8 +12,8 @@
 </template>
 
 <script>
+import Mask from "@/components/mask";
 import yButton from "@/components/button/button";
-import { type } from 'os';
 export default {
     name:"yDialog",
     components:{
@@ -60,6 +60,7 @@ export default {
       // 关闭dialog
       onClose(action){
         this.isShow = false
+        Mask.hide(this)
         if(this.callback){
           this.callback(action)
         }

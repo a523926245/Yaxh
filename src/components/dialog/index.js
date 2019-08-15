@@ -1,5 +1,6 @@
 import vueDialogComponent from "./dialog";
 import Vue from "vue";
+import Mask from "@/components/mask";
 
 let instance;
 const defaultOptions = {
@@ -15,6 +16,10 @@ const defaultOptions = {
 }
 const dialogConstructor = Vue.extend(vueDialogComponent);
 
+function isInDocument(element) {
+    return document.body.contains(element);
+}
+
 function createInstance(){
     if(instance){
         instance.$destroy()
@@ -22,6 +27,9 @@ function createInstance(){
     instance = new dialogConstructor({
         el:document.createElement('div')
     })
+    instance.$on('input', isShow => {
+        instance.isShow = isShow;
+    });
 }
 
 function transformOptions(options){
@@ -34,12 +42,17 @@ function transformOptions(options){
 
 function Dialog(options){
     return new Promise((reslove,reject) =>{
-        createInstance()
+        if(!instance || !isInDocument(instance.$el)){
+            createInstance()
+            document.body.appendChild(instance.$el)
+        }
         Object.assign(instance,transformOptions(options),{
             reslove,
             reject
         })
-        document.body.appendChild(instance.$el)
+        Mask.show(instance,{
+            maskClose:false
+        })
     })
 }
 Dialog.alert = Dialog;
