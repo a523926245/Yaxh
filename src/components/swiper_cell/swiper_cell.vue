@@ -43,17 +43,17 @@ export default {
             offsetEndX:0,
             // 是否动画中
             dragged:0,
+            hasSwiperedCell:false
 
         }
     },
     methods:{
         clickEvent(e){
-            this.checkIsSwipered()
-            console.log(1)
+            this.$emit('click')
+            this.checkIsSwipered(e)
         },
         // 监听滑动开始
         moveStart(e){
-            this.checkIsSwipered()
             // 禁用滑动
             if(this.disabled){
                 return ;
@@ -62,6 +62,7 @@ export default {
         },
         // 监听滑动结束
         moveEnd(e){
+            this.checkIsSwipered()
             let parentDom = e.currentTarget.parentElement;
             // 禁用滑动
             if(this.disabled){
@@ -78,7 +79,7 @@ export default {
                 }
             }
             // 右滑收起cell
-            else{
+            else if(this.offsetSatrtX < this.offsetEndX){
                 this.swiperMove(e.currentTarget,0,0,0)
                 this.drapX = 0;
             }
@@ -86,11 +87,12 @@ export default {
             
         },
         // 检查是否有其他滑动的元素
-        checkIsSwipered(){
+        checkIsSwipered(e){
             let swiperList = document.querySelectorAll(".swiper_cell")
-            
             for(let i = 0; i < swiperList.length ;i++){
                 if(swiperList[i].dataset.dragged == 1 ){
+                    this.hasSwiperedCell = true
+                    e && (e.stopPropagation())
                     let childDdom = swiperList[i].children[0]
                     this.swiperMove(childDdom,0,0,0)
                 }
