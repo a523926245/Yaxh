@@ -1,5 +1,5 @@
 <template>
-    <div v-show="isShow" class="y-popup" :class="[position ? 'y-popup--'+position : '']">
+    <div v-show="value" class="y-popup" :class="[position ? 'y-popup--'+position : '']">
         <slot>
             <div></div>
         </slot>
@@ -7,9 +7,11 @@
 </template>
 
 <script>
-import Mask from "@/components/mask";
+
+import { PopupMixin } from "@/mixin/popup";
 export default {
     name:"yPopup",
+    mixins:[PopupMixin],
     props:{
         position:{
             type:String,
@@ -20,18 +22,13 @@ export default {
             default:false
         }
     },
-    computed:{
-        isShow:{
-            get(){
-                return this.value
-            },
-            set(){
-                
+    watch:{
+        value:{
+            handler(val){
+                const type = val ? 'open' : 'close';
+                this[type]();
             }
         }
-    },
-    mounted(){
-        Mask.show(this,{maskClose:true})
     }
 }
 </script>

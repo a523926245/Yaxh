@@ -1,5 +1,5 @@
 <template>
-    <div class="y-mask" v-show="mask" @click="onClose"></div>
+    <div class="y-mask" v-show="mask" @click="clickEvent"></div>
 </template>
 
 <script>
@@ -15,20 +15,15 @@ export default {
             default:true
         }
     },
-    data(){
-        return{
-
-        }
-    },
     methods:{
         clickEvent(e){
             this.$emit('click-mask')
-            this.onClose(e)
+            this.closeMask(e)
         },
-        onClose(e){
+        closeMask(e){
             // 是否点击蒙层关闭弹窗和蒙层
             if(this.maskClose){
-                this.actionNode.isShow = false
+                this.actionNode.close()
                 this.mask = false
             }
             else{

@@ -50,9 +50,7 @@ function Dialog(options){
             reslove,
             reject
         })
-        Mask.show(instance,{
-            maskClose:false
-        })
+        Mask.show(instance,{maskClose:false})
     })
 }
 Dialog.alert = Dialog;

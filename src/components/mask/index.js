@@ -7,9 +7,6 @@ let instance;
 const defaultOptions = {
     actionNode:null,
     mask:true,
-    callback:state => {
-        return state
-    }
 }
 
 function isInDocument(element) {
@@ -23,10 +20,6 @@ function createInstance(){
     instance = new maskConstructor({
         el:document.createElement('div')
     })
-    // instance.$on('input', mask => {
-    //     console.log(mask)
-    //     instance.mask = mask;
-    // });
 }
 
 function transformOptions(options){
@@ -42,21 +35,20 @@ function Mask(options){
         createInstance()
     }
     Object.assign(instance, transformOptions(options));
-    console.log(instance)
     if(options.actionNode){
         // 更新mask插入到调用它的父组件中-----------待完善
-        options.actionNode.$el.parentNode.appendChild(instance.$el)
+        options.actionNode.$parent.$el.appendChild(instance.$el)
     }
 }
 // state唤起当前mask的组件
 Mask.show = (state,options) =>{
     Mask({
-        mask:true,
         actionNode:state,
+        'actionNode.value':true,
         maskClose:options.maskClose ? options.maskClose : false
     })
 }
-Mask.hide = state =>{
+Mask.hide = (state,options) =>{
     Mask({
         mask:false,
         actionNode:state,

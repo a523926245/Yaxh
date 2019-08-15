@@ -9,9 +9,9 @@
                     <y-button class="edit" @click="clickEdit">修改</y-button>
                     <y-button class="delete" @click="clickDelete(item.id)">删除</y-button>
                 </div>
-                
             </y-swiper-cell>
            </template>
+           <y-button @click="togglePopup">按钮</y-button>
            <y-popup v-model="show">123</y-popup>
         </div>
     </div>
@@ -41,7 +41,7 @@ export default {
         return {
           title:"网站首页",
           result:null,
-          show:true
+          show:false
         }
     },
     mounted(){
@@ -55,6 +55,10 @@ export default {
      })
    },
    methods:{
+     togglePopup(){
+       this.show = !this.show
+       console.log(this.show)
+     },
      showDialog2(){
        this.$dialog({
          title:"弹窗2",

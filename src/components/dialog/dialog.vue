@@ -60,7 +60,7 @@ export default {
       // 关闭dialog
       onClose(action){
         this.isShow = false
-        Mask.hide(this)
+        Mask.hide(this,{})
         if(this.callback){
           this.callback(action)
         }
