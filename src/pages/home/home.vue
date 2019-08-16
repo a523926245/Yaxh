@@ -11,37 +11,72 @@
                 </div>
             </y-swiper-cell>
            </template>
-           <y-button @click="togglePopup">按钮</y-button>
-           <y-popup v-model="show">123</y-popup>
+           <!-- y-button -->
+           <y-button @click="togglePopup">popup按钮</y-button>
+           <!-- y-popup -->
+           <y-popup v-model="show" position="bottom">
+             <div class="popupBox">123</div>
+           </y-popup>
+           <!-- y-checkbox -->
+           <y-checkbox-group v-model="results" @change="resultChange">
+                <y-checkbox v-for="(item,index) in checkboxArr" 
+                v-model="item.checked" 
+                :disabled="item.disabled"
+                :name="item.name" 
+                :index="index" checkedColor="green">{{item.name}}</y-checkbox>
+           </y-checkbox-group>
+           <!-- y-datepicker -->
+           <y-datepicker>123</y-datepicker>
         </div>
     </div>
 </template>
 
 <script>
-import yDialog from "@/components/dialog/dialog";
+import yDatepicker from "@/components/datePicker/datePicker";
+import yCheckboxGroup from "@/components/checkboxgroup/checkboxgroup";
+import yCheckbox from "@/components/checkbox/checkbox";
 import yPopup from "@/components/popup/popup"
 import yNavbar from "@/components/navbar/navbar";
 import ySwiperCell from "@/components/swiper_cell/swiper_cell";
 import yCell from "@/components/cell/cell";
 import yButton from "@/components/button/button";
-import yIcon from "@/components/icon/icon";
 export default {
     name:"home",
     components:{
         yNavbar,
         ySwiperCell,
         yCell,
-        yDialog,
         yButton,
-        yIcon,
-        yPopup
+        yPopup,
+        yCheckbox,
+        yCheckboxGroup,
+        yDatepicker
     },
     inject:['reload'],
     data(){
         return {
+          results:[],
           title:"网站首页",
           result:null,
-          show:false
+          show:false,
+          showDialog:false,
+          checkboxArr:[
+            {
+              checked:true,
+              name:'张三',
+              disabled:false
+            },
+            {
+              checked:false,
+              name:'李四',
+              disabled:false
+            },
+            {
+              checked:false,
+              name:'赵五',
+              disabled:true
+            },
+          ]
         }
     },
     mounted(){
@@ -55,15 +90,11 @@ export default {
      })
    },
    methods:{
+     resultChange(e){
+       console.log(e)
+     },
      togglePopup(){
        this.show = !this.show
-       console.log(this.show)
-     },
-     showDialog2(){
-       this.$dialog({
-         title:"弹窗2",
-         content:"弹窗2"
-       })
      },
     //  修改信息
      clickEdit(e){
@@ -91,7 +122,7 @@ export default {
                  console.log(err)
                })
            } else {
-             done(false)
+             done()
            }
          }
        })
@@ -100,6 +131,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.popupBox{
+  width:100%;
+  height:100%;
+}
 </style>

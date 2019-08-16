@@ -37,14 +37,19 @@ function Mask(options){
     Object.assign(instance, transformOptions(options));
     if(options.actionNode){
         // 更新mask插入到调用它的父组件中-----------待完善
-        options.actionNode.$parent.$el.appendChild(instance.$el)
+        if(options.actionNode.$parent && options.actionNode.$parent.$el)
+        {
+            options.actionNode.$parent.$el.appendChild(instance.$el)
+        }
+        else{
+            options.actionNode.$el.parentNode.appendChild(instance.$el)
+        }
     }
 }
 // state唤起当前mask的组件
 Mask.show = (state,options) =>{
     Mask({
         actionNode:state,
-        'actionNode.value':true,
         maskClose:options.maskClose ? options.maskClose : false
     })
 }

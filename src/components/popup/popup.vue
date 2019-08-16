@@ -1,7 +1,6 @@
 <template>
     <div v-show="value" class="y-popup" :class="[position ? 'y-popup--'+position : '']">
         <slot>
-            <div></div>
         </slot>
     </div>
 </template>
@@ -20,13 +19,17 @@ export default {
         value:{
             type:Boolean,
             default:false
+        },
+        maskClose:{
+            type:Boolean,
+            default:true
         }
     },
     watch:{
         value:{
             handler(val){
                 const type = val ? 'open' : 'close';
-                this[type]();
+                this[type](this.maskClose);
             }
         }
     }

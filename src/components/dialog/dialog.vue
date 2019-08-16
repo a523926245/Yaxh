@@ -1,26 +1,27 @@
 <template>
-    <div class="y-dialog" v-show="isShow">
+    <div class="y-dialog" v-show="value">
         <div class="y-dialog__header">{{title}}</div>
         <div class="y-dialog__content">
             <div class="y-dialog__message y-dialog__message--has-title">{{content}}</div>
         </div>
         <div class="y-hairline--top y-dialog__footer y-dialog__footer--buttons">
-            <y-button size="large" v-if="showCancelButton" @click="handleAction('cancel')">{{cancelText}}</y-button>
-            <y-button size="large" @click="handleAction('confirm')">{{confirmText}}</y-button>
+            <y-button size="large" v-if="showCancelButton" @click.stop="handleAction('cancel')">{{cancelText}}</y-button>
+            <y-button size="large" @click.self="handleAction('confirm')">{{confirmText}}</y-button>
         </div>
     </div>
 </template>
 
 <script>
-import Mask from "@/components/mask";
 import yButton from "@/components/button/button";
+import { PopupMixin } from "@/mixin/popup";
 export default {
     name:"yDialog",
+    mixins:[PopupMixin],
     components:{
         yButton
     },
     props:{
-        isShow:{
+        value:{
           type:Boolean,
           default:false
         },
@@ -35,7 +36,22 @@ export default {
             type:String,
             default:'取消'
         },
-        showCancelButton:true
+        showCancelButton:{
+          type:Boolean,
+          default:true
+        },
+        maskClose:{
+          type:Boolean,
+          default:false
+        }
+    },
+    watch:{
+        value:{
+            handler(val){
+                const type = val ? 'open' : 'onClose';
+                this[type](this.maskClose);
+            }
+        }
     },
     data(){
         return{
@@ -46,21 +62,20 @@ export default {
       // 点击事件触发器
       handleAction(action){
         this.$emit(action)
+        this.onClose(action)
+      },
+      // 关闭dialog
+      onClose(action){
+        let that = this;
         if(this.beforeClose){
           // dialog关闭拦截器
           this.beforeClose(action,state =>{
             if(state !== false){
-              this.onClose(action)
+              that.close(that.maskClose)
             }
           })
-        }else{
-          this.onClose(action)
         }
-      },
-      // 关闭dialog
-      onClose(action){
-        this.isShow = false
-        Mask.hide(this,{})
+        this.close(this.maskClose)
         if(this.callback){
           this.callback(action)
         }

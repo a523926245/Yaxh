@@ -4,7 +4,7 @@ import Mask from "@/components/mask";
 
 let instance;
 const defaultOptions = {
-    isShow:true,
+    value:true,
     title:'',
     content:'',
     confirmText:'确认',
@@ -27,8 +27,8 @@ function createInstance(){
     instance = new dialogConstructor({
         el:document.createElement('div')
     })
-    instance.$on('input', isShow => {
-        instance.isShow = isShow;
+    instance.$on('input', value => {
+        instance.value = value;
     });
 }
 
@@ -50,7 +50,6 @@ function Dialog(options){
             reslove,
             reject
         })
-        Mask.show(instance,{maskClose:false})
     })
 }
 Dialog.alert = Dialog;
