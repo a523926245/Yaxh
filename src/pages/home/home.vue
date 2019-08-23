@@ -14,9 +14,6 @@
            <!-- y-button -->
            <y-button @click="togglePopup">popup按钮</y-button>
            <!-- y-popup -->
-           <y-popup v-model="show" position="bottom">
-             <div class="popupBox">123</div>
-           </y-popup>
            <!-- y-checkbox -->
            <y-checkbox-group v-model="results" @change="resultChange">
                 <y-checkbox v-for="(item,index) in checkboxArr" 
@@ -26,7 +23,16 @@
                 :index="index" checkedColor="green">{{item.name}}</y-checkbox>
            </y-checkbox-group>
            <!-- y-datepicker -->
-           <y-datepicker>123</y-datepicker>
+           <y-popup v-model="show" position="bottom">
+             <y-datepicker 
+                v-model="currentDate"
+                :maxDate="maxDate"
+                @cancel="cancelDate"
+                @confirm="confirmDate"
+                :minDate="minDate" >
+             </y-datepicker>
+           </y-popup>
+           
         </div>
     </div>
 </template>
@@ -55,6 +61,9 @@ export default {
     inject:['reload'],
     data(){
         return {
+          maxDate:new Date(2020,0,1),
+          minDate:new Date(1970,0,1),
+          currentDate:new Date(),
           results:[],
           title:"网站首页",
           result:null,
@@ -90,6 +99,12 @@ export default {
      })
    },
    methods:{
+     cancelDate(v){
+       console.log(v)
+     },
+     confirmDate(v){
+       console.log(v)
+     },
      resultChange(e){
        console.log(e)
      },
