@@ -1078,7 +1078,7 @@
 }
 
 /* date-picker */
-.y-picker {
+/* .y-picker {
   overflow: hidden;
   -webkit-user-select: none;
   user-select: none;
@@ -1161,7 +1161,8 @@
 
 .y-picker-column__item {
   padding: 0 5px;
-  color: #969799
+  color: #969799;
+  backface-visibility: hidden
 }
 
 .y-picker-column__item--selected {
@@ -1172,3 +1173,7 @@
 .y-picker-column__item--disabled {
   opacity: .3
 }
+.y-picker-column__wrapper{
+  transition-timing-function:cubic-bezier(0.23, 1, 0.68, 1);
+  transform-style: preserve-3d;
+} */
