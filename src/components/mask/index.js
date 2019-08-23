@@ -36,7 +36,7 @@ function Mask(options){
     }
     Object.assign(instance, transformOptions(options));
     if(options.actionNode){
-        // 更新mask插入到调用它的父组件中-----------待完善
+        // 更新mask插入到调用它的父组件中
         if(options.actionNode.$parent && options.actionNode.$parent.$el)
         {
             options.actionNode.$parent.$el.appendChild(instance.$el)
