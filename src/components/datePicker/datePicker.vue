@@ -7,9 +7,9 @@
         <template>
             <div class="y-picker__columns" style="height:220px;">
                 <div class="y-picker-column" v-for="(item,index) in rangs" :key="index" :index="index">
-                    <template v-if="item.type == 'year'">
+                    <template v-if="item.type == 'Year'">
                         <ul class="y-picker-column__wrapper" 
-                        :style="{transform:scrollStyleY}"
+                        :style="{transform:scrollStyleYear}"
                         style="transition-duration: 0ms; transition-property: none; line-height: 44px;"
                         >
                             <template  v-for="(childitem,index2) in item.rang" :index="index">
@@ -20,9 +20,9 @@
                             </template>
                         </ul>
                     </template>
-                    <template v-else-if="item.type == 'month'">
+                    <template v-else-if="item.type == 'Month'">
                         <ul class="y-picker-column__wrapper" 
-                        :style="{transform:scrollStyleM}"
+                        :style="{transform:scrollStyleMonth}"
                         style="transition-duration: 0ms; transition-property: none; line-height: 44px;">
                             <li 
                             :class="[index2 == activeM ? 'y-picker-column__item--selected' : '']" 
@@ -30,9 +30,9 @@
                             @click="handlerClick(item.type,index2,childitem)" v-for="(childitem,index2) in item.rang" :key="childitem">{{childitem}}</li>
                         </ul>
                     </template>
-                    <template v-else-if="item.type == 'day'">
+                    <template v-else-if="item.type == 'Day'">
                         <ul class="y-picker-column__wrapper"
-                        :style="{transform:scrollStyleD}"
+                        :style="{transform:scrollStyleDay}"
                         style="transition-duration: 0ms; transition-property: none; line-height: 44px;">
                             <li 
                             :class="[index2 == activeD ? 'y-picker-column__item--selected' : '']" 
@@ -49,8 +49,10 @@
 <script>
 const currentYear = new Date().getFullYear();
 import {isNaN,isDate,formatDate} from "@/utils/date.js";
+import { pickerMixin } from "@/mixin/picker";
 export default {
     name:"yDatepicker",
+    mixins:[pickerMixin],
     props:{
         value:null,
         type:{
@@ -86,16 +88,16 @@ export default {
             startY:null,
             endY:null,
             activeY:null,
-            scrollHeightY:null,
-            scrollStyleY:null,
+            scrollHeightYear:null,
+            scrollStyleYear:null,
             
             activeM:null,
-            scrollHeightM:null,
-            scrollStyleM:null,
+            scrollHeightMonth:null,
+            scrollStyleMonth:null,
 
             activeD:null,
-            scrollHeightD:null,
-            scrollStyleD:null,
+            scrollHeightDay:null,
+            scrollStyleDay:null,
             innerDate:formatDate(this.value)
         }
     },
@@ -103,22 +105,25 @@ export default {
         
     },
     computed:{
+        innerValue(){
+           return this.innerDate.join('-')
+        },
         rang(){
             let result = [
                 {
-                    type:'year',
+                    type:'Year',
                     rang:[]
                 },{
-                    type:'month',
+                    type:'Month',
                     rang:[]
                 },{
-                    type:'day',
+                    type:'Day',
                     rang:[]
                 },{
-                    type:'hour',
+                    type:'Hour',
                     rang:[]
                 },{
-                    type:'minute',
+                    type:'Minute',
                     rang:[]
                 }
             ];
@@ -138,48 +143,39 @@ export default {
             this.rang[1].rang = this.fillArray(this.minMonth,this.maxMonth)
             this.rang[2].rang = this.fillArray(this.minDay,this.getMonthEndDay(this.value.getFullYear(),this.value.getMonth() + 1))
 
-            
-            this.rang[0].rang.forEach((val,index) =>{
-                if(val == this.innerDate[0]){
-                    this.activeY = index
-                    this.moveColumn('year',index)
-                }
-            })
-
-            this.rang[1].rang.forEach((val,index) =>{
-                if(val == this.innerDate[1]){
-                    this.activeM = index
-                    this.moveColumn('month',index)
-                }
-            })
-
-            this.rang[2].rang.forEach((val,index) =>{
-                if(val == this.innerDate[2]){
-                    this.activeD = index
-                    this.moveColumn('day',index)
-                }
+            // 获取当天时间column索引
+            this.rang.map((obj,i) => {
+                obj.rang.forEach((args,j) =>{
+                    if(obj.type == 'Year'){
+                        if(args == this.innerDate[0]){
+                            this.activeY = j
+                            this.updateDate(obj.type,j)
+                        }
+                    }
+                    if(obj.type == 'Month'){
+                        if(args == this.innerDate[1]){
+                            this.activeM = j
+                            this.updateDate(obj.type,j)
+                        }
+                    }
+                    if(obj.type == 'Day'){
+                        if(args == this.innerDate[2]){
+                            this.activeD = j
+                            this.updateDate(obj.type,j)
+                        }
+                    }
+                })
             })
 
             return this.rang
         }
     },
     methods:{
-        fillArray(start,end){
-            let array = [];
-            let n = start - 1;
-            while(++n <= end){
-                if(n < 10){
-                    n = `0${n}`
-                }
-                array.push(n)
-            }
-            return array;
-        },
         isLeapYear(year){
             return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0) 
         },
         isShortMonth(month){
-            return [4,6,9,11].indexOf(month) > -1
+            return ['04','06','09','11'].indexOf(month) > -1
         },
         getMonthEndDay(year,month){
             if(this.isShortMonth(month)){
@@ -192,44 +188,52 @@ export default {
                 return 31
             }
         },
-        onChange(value){
-            this.$emit('change',value)
-        },
-        onConfirm(){
-            let isyPopup = this.$parent.$el.classList.value.indexOf('y-popup') > -1 ? true : false;
-            if(this.$parent && isyPopup)this.$parent.close();
-            this.$emit('confirm',this.innerDate.join("-"))
-        },
-        onCancel(){
-            let isyPopup = this.$parent.$el.classList.value.indexOf('y-popup') > -1 ? true : false;
-            if(this.$parent && isyPopup)this.$parent.close();
-            this.$emit('cancel',this.innerDate.join("-"))
+        fillArray(start,end){
+            let array = [];
+            let n = start - 1;
+            while(++n <= end){
+                if(n < 10){
+                    n = `0${n}`
+                }
+                array.push(n)
+            }
+            return array;
         },
         handlerClick(type,index,item){
-            this.moveColumn(type,index,item)
-            this.onChange(this.innerDate.join("-"))
+            this.updateDate(type,index,item)
+            this.onChange(this.innerValue,index,this)
         },
-        moveColumn(type,index,item){
+        updateDate(type,index,item){
             let innerDate = this.innerDate;
-            if(type == "year"){
+            if(type == "Year"){
                 this.activeY = index;
                 if(item)innerDate[0] = item;
-                this.scrollHeightY = (index-2) * 44;
-                this.scrollStyleY = `translate3d(0px,${-this.scrollHeightY}px,0px)`
+                this.scrollColumn('Year',index,44)
             }
-            if(type == "month"){
+            // 调整每月天数
+            this.rang[2].rang = this.fillArray(this.minDay,this.getMonthEndDay(innerDate[0],innerDate[1]))
+            if(type == "Month"){
                 this.activeM = index;
                 if(item)innerDate[1] = item;
-                this.scrollHeightM = (index-2) * 44;
-                this.scrollStyleM = `translate3d(0px,${-this.scrollHeightM}px,0px)`
+                this.scrollColumn('Month',index,44)
+                // 调整每月天数
+                this.rang[2].rang = this.fillArray(this.minDay,this.getMonthEndDay(innerDate[0],innerDate[1]))
+                // 当月天数小于上个月天数
+                let dayLen = this.rang[2].rang.length;
+                if(this.activeD >= dayLen - 1){
+                    this.activeD = dayLen - 1;
+                    this.scrollColumn('Day',dayLen,44)
+                }
             }
-            if(type == "day"){
+            if(type == "Day"){
                 this.activeD = index;
                 if(item)innerDate[2] = item;
-                this.scrollHeightD = (index-2) * 44;
-                this.scrollStyleD = `translate3d(0px,${-this.scrollHeightD}px,0px)`
+                this.scrollColumn('Day',index,44)
             }
-            this.rang[2].rang = this.fillArray(this.minDay,this.getMonthEndDay(innerDate[0],innerDate[1]))
+        },
+        scrollColumn(type,index,lineHeight){
+            let scrollStyle = `scrollStyle${type}`;
+            this[scrollStyle] = `translate3d(0px,${-(index - 2) * 44}px,0px)`;
         }
     }
 }
@@ -329,6 +333,9 @@ export default {
         opacity: @picker-option-disabled-opacity;
       }
       &--selected{
+          border-top:1px transparent solid;
+          border-bottom:1px transparent solid;
+          border-image:linear-gradient(to right,#fff,#ddd,#fff) 1 10;
           font-weight: 500;
           color:@picker-action-text-color;
       }
