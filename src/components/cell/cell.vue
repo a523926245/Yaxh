@@ -1,16 +1,16 @@
 <template>
-    <div class="cell" @click="click">
-        <div v-if=title class="cell__title">
+    <div class="y-cell" @click="click" :class="[required ? 'y-cell--required' : '']">
+        <div v-if=title class="y-cell__title" :class="[minTitle ? 'y-cell__mintitle' : '']">
             <slot name="icon">
                 <i v-if="icon">{{icon}}</i>
             </slot>
             <slot name="title" v-if="title">
                 <span v-if="title">{{title}}</span>
-                <span v-if="label" class="cell__label">{{label}}</span>
+                <span v-if="label" class="y-cell__label">{{label}}</span>
             </slot>
         </div>
         <!-- value || $slots.default 组件是否传递value参数或者是否有slot -->
-        <div v-if="value || $slots.default" class="cell__value" :class="[title ? '' : 'cell__value--alone',align ? 'cell__value_'+ align :'']">
+        <div v-if="value || $slots.default" class="y-cell__value" :class="[title ? '' : 'y-cell__value--alone',align ? 'y-cell__value_'+ align :'']">
             <slot>
                 <span v-if="value">{{value}}</span>
             </slot>
@@ -31,6 +31,7 @@
  * @param {slot} - 同 value, 会覆盖 value 属性
  * @param {slot} [title] - 同 title, 会覆盖 title 属性
  * @param {slot} [icon] - 同 icon, 会覆盖 icon 属性，例如可以传入图片
+ * @param {boolean} [min-itle] - 开启迷你title,flex占比减少
  */
 
 export default {
@@ -48,6 +49,10 @@ export default {
         icon:String,
         // 是否开启cell箭头
         isLink:Boolean,
+        // 迷你titile
+        minTitle:Boolean,
+        // 是否为必填项
+        required:Boolean
     },
     data(){
         return{
@@ -63,61 +68,106 @@ export default {
 </script>
 
 <style lang="less">
-.cell{
-    width: 100%;
-    display: flex;
-    padding: 10px 15px;
-    box-sizing: border-box;
-    line-height: 24px;
+.y-cell {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: @cell-vertical-padding @cell-horizontal-padding;
+  overflow: hidden;
+  color: @cell-text-color;
+  font-size: @cell-font-size;
+  line-height: @cell-line-height;
+  background-color: @cell-background-color;
+
+  &:not(:last-child)::after {
+    // .hairline-bottom(@cell-border-color, @padding-md);
+  }
+
+  &--borderless::after {
+    display: none;
+  }
+
+  &__label {
+    margin-top: @cell-label-margin-top;
+    color: @cell-label-color;
+    font-size: @cell-label-font-size;
+    line-height: @cell-label-line-height;
+  }
+
+  &__title,
+  &__value {
+    flex: 1;
+  }
+  &__title{
+      text-align: left;
+  }
+  &__mintitle{
+      flex:0.3 !important;
+  }  
+  &__value {
     position: relative;
-    background-color: #fff;
-    color: #323233;
-    font-size: 14px;
     overflow: hidden;
-    .cell__value,.cell__title{
-        flex:1
-    }
-    .cell__title{
-        overflow: hidden;
-        text-align: left
-    }
-}
-.cell:not(:last-child)::after{
-        content:' ';
-        position:absolute;
-        pointer-events:none;
-        box-sizing:border-box;
-        left:15px;
-        right:15px;
-        bottom:0;
-        transform:scaleY(.5);
-        border-bottom:1px solid #ebedf0
-    }
-.cell__label{
-    display: block;
-    margin-top:5px;
-    color:#969799;
-    overflow: hidden;
-}    
-.cell__value{
-    color: #969799;
-    overflow: hidden;
+    color: @cell-value-color;
     text-align: right;
-    position: relative;
     vertical-align: middle;
-    &.cell__value_left{
-        text-align: left;
-        padding-left:10px;
+
+    &--alone {
+      color: @text-color;
+      text-align: left;
     }
-    &.cell__value_right{
-        text-align: right
+  }
+
+  &__left-icon,
+  &__right-icon {
+    min-width: 1em;
+    height: @cell-line-height;
+    font-size: @cell-icon-size;
+    line-height: @cell-line-height;
+  }
+
+  &__left-icon {
+    margin-right: 5px;
+  }
+
+  &__right-icon {
+    margin-left: 5px;
+    color: @cell-right-icon-color;
+  }
+
+  &--clickable {
+    &:active {
+      background-color: @cell-active-color;
     }
-    &.cell__value_center{
-        text-align: center
+  }
+
+  &--required {
+    overflow: visible;
+
+    &::before {
+      position: absolute;
+      left: @padding-xs;
+      color: @cell-required-color;
+      font-size: @cell-font-size;
+      content: '*';
     }
-}
-.cell__value--alone{
-    color: #323233;
-    text-align: left;
+  }
+
+  &--center {
+    align-items: center;
+  }
+
+  &--large {
+    padding-top: @cell-large-vertical-padding;
+    padding-bottom: @cell-large-vertical-padding;
+
+    .van-cell__title {
+      font-size: @cell-large-title-font-size;
+    }
+
+    .van-cell__label {
+      font-size: @cell-large-label-font-size;
+    }
+  }
 }
 </style>
