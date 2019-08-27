@@ -1,9 +1,11 @@
 <template>
     <div class="y-cell" @click="click" :class="[required ? 'y-cell--required' : '']">
-        <div v-if=title class="y-cell__title" :class="[minTitle ? 'y-cell__mintitle' : '']">
-            <slot name="icon">
-                <i v-if="icon">{{icon}}</i>
-            </slot>
+        <slot name="icon" @click="clickLeftIcon">
+            <div class="y-field__left-icon" v-if="icon">
+                <y-icon :name="icon"></y-icon>
+            </div>
+        </slot>
+        <div v-if="title" class="y-cell__title" :class="[minTitle ? 'y-cell__mintitle' : '',labelAlign ? 'y-cell__label--' + labelAlign :'']">
             <slot name="title" v-if="title">
                 <span v-if="title">{{title}}</span>
                 <span v-if="label" class="y-cell__label">{{label}}</span>
@@ -16,6 +18,11 @@
             </slot>
         </div>
         <i v-if="isLink">></i>
+        <slot name="righticon" @click="clickRightIcon">
+            <div class="y-field__right-icon" v-if="rightIcon" >
+                <y-icon :name="rightIcon"></y-icon>
+            </div>
+        </slot>
     </div>
 </template>
 
@@ -24,6 +31,7 @@
  * cell
  * @module components/cell
  * @param {string} [icon] - 图标，提供 more, back，或者自定义的图标（传入不带前缀的图标类名，最后拼接成 .mintui-xxx）
+ * @param {string} [right-icon] - 图标
  * @param {string} [title] - 标题
  * @param {string} [label] - 备注信息
  * @param {boolean} [is-link=false] - 可点击的链接
@@ -33,9 +41,12 @@
  * @param {slot} [icon] - 同 icon, 会覆盖 icon 属性，例如可以传入图片
  * @param {boolean} [min-itle] - 开启迷你title,flex占比减少
  */
-
+import yIcon from "@/components/icon/icon";
 export default {
     name:"yCell",
+    components:{
+        yIcon
+    },
     props:{
         // cell标题
         title:String,
@@ -49,10 +60,17 @@ export default {
         icon:String,
         // 是否开启cell箭头
         isLink:Boolean,
-        // 迷你titile
+        // 是否开启迷你titile
         minTitle:Boolean,
         // 是否为必填项
-        required:Boolean
+        required:Boolean,
+        // 右侧图标
+        rightIcon:String,
+        // label text-align
+        labelAlign:{
+          type:String,
+          default:'left'
+        }
     },
     data(){
         return{
@@ -60,15 +78,21 @@ export default {
         }
     },
     methods:{
-        click(e){
-            this.$emit("click",e)
+        click(event){
+            this.$emit("click",event)
+        },
+        clickLeftIcon(event){
+          this.$emit('click-left-icon',event)
+        },
+        clickRightIcon(event){
+          this.$emit('click-right-icon',event)
         }
     }
 }
 </script>
 
 <style lang="less">
-.y-cell {
+.y-cell{
   position: relative;
   display: flex;
   box-sizing: border-box;
@@ -80,7 +104,16 @@ export default {
   line-height: @cell-line-height;
   background-color: @cell-background-color;
 
-  &:not(:last-child)::after {
+  &:not(:last-child)::after{
+      position: absolute;
+      box-sizing: border-box;
+      content: ' ';
+      pointer-events: none;
+      right: 0;
+      bottom: 0;
+      left: 16px;
+      border-bottom: 1px solid @cell-border-color;
+      transform: scaleY(0.5);
     // .hairline-bottom(@cell-border-color, @padding-md);
   }
 
@@ -94,17 +127,23 @@ export default {
     font-size: @cell-label-font-size;
     line-height: @cell-label-line-height;
   }
-
   &__title,
   &__value {
     flex: 1;
   }
   &__title{
       text-align: left;
+      // max-width: 90px;
   }
   &__mintitle{
       flex:0.3 !important;
-  }  
+  }
+  &__label--left{
+      text-align: left;
+    }
+  &__label--right{
+      text-align: right;
+    }
   &__value {
     position: relative;
     overflow: hidden;
