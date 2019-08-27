@@ -1,9 +1,21 @@
 <template>
-  <y-cell min-title required :title="label">
+  <y-cell min-title :required="required" :title="label" :icon="leftIcon" :right-icon="rightIcon">
       <div class="y-field__body">
-          <input type="text" placeholder="请输入用户名" class="y-field__control">
+          <!-- input类型 -->
+          <template v-if="type == 'textarea'">
+              <textarea rows="1" :readonly="readonly" :disabled="disabled" :value="value" :placeholder="placeholder" class="y-field__control" @input="onInput"></textarea>
+          </template>
+          <template v-else>
+              <input :type="type" :readonly="readonly" :disabled="disabled" :value="value" :placeholder="placeholder" class="y-field__control" @input="onInput">
+          </template>
+          <!-- 右侧插入按钮 -->
+          <div class="y-field__button" v-if="$slots.button">
+            <slot name="button"></slot>
+        </div>
       </div>
-  </y-cell>
+      <!-- 错误提示 -->
+      <div class="y-field__error-message" v-if="errorMessage">{{errorMessage}}</div>
+  </y-cell> 
 </template>
 
 <script>
@@ -14,9 +26,53 @@ export default {
         yCell
     },
     props:{
+        // input file type
+        type:{
+            type:String,
+            default:'text'
+        },
+        // filed label
         label:{
             type:String,
             default:'标题'
+        },
+        // which to be readonly?
+        readonly:Boolean,
+        // which must be write?
+        required:Boolean,
+        // input value
+        value:[String,Number],
+        // right icon 
+        rightIcon:String,
+        // left icon
+        leftIcon:String,
+        // is disabled input file
+        disabled:Boolean,
+        // input placehlober text 
+        placeholder:String,
+        // error message notice
+        errorMessage:String,
+        // label text align
+        labelAlign:[String]
+    },
+    methods:{
+        onInput(event){
+          if (event.target.composing) {
+            return;
+          }
+          this.$emit('input', event.target.value)
+        },
+        onClick(event){
+          this.$emit('click',event)
+        },
+        onFocus(event){
+          this.$emit('focus',event)
+          if(this.readonly){
+            this.blur();
+          }
+        },
+        onBlur(event){
+          this.$emit('blur',event)
         }
     }
 }
