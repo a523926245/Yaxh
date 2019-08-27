@@ -10,6 +10,8 @@ export const isNaN = (value) =>{
     // eslint-disable-next-line no-self-compare
     return value !== value;
 }
+
+// formate date to Array
 export const formatDate = (date) =>{
     let year,month,day,dateArr;
     let d = new Date(date);

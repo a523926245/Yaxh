@@ -15,13 +15,13 @@
            <y-button @click="togglePopup">popup按钮</y-button>
            <!-- y-popup -->
            <!-- y-checkbox -->
-           <y-checkbox-group v-model="results" @change="resultChange">
+           <!-- <y-checkbox-group v-model="results" @change="resultChange">
                 <y-checkbox v-for="(item,index) in checkboxArr" 
                 v-model="item.checked" 
                 :disabled="item.disabled"
                 :name="item.name" 
-                :index="index" checkedColor="green">{{item.name}}</y-checkbox>
-           </y-checkbox-group>
+                :index="index">{{item.name}}</y-checkbox>
+           </y-checkbox-group> -->
            <!-- y-datepicker -->
            <y-popup v-model="show" position="bottom">
              <y-datepicker 
@@ -32,12 +32,24 @@
                 :minDate="minDate" >
              </y-datepicker>
            </y-popup>
-           
+          <y-button @click="selectCity">选择城市</y-button>
+          <y-popup v-model="showCity" position="bottom">
+            <y-picker 
+              :columns="city"
+              @change="onChange"
+              @confirm="onConfirm"
+              @cancel="onCancel"
+              show-toolbar>
+            </y-picker>
+          </y-popup>
+
+          
         </div>
     </div>
 </template>
 
 <script>
+import yPicker from "@/components/datePicker/picker";
 import yDatepicker from "@/components/datePicker/datePicker";
 import yCheckboxGroup from "@/components/checkboxgroup/checkboxgroup";
 import yCheckbox from "@/components/checkbox/checkbox";
@@ -45,7 +57,9 @@ import yPopup from "@/components/popup/popup"
 import yNavbar from "@/components/navbar/navbar";
 import ySwiperCell from "@/components/swiper_cell/swiper_cell";
 import yCell from "@/components/cell/cell";
+import yCellgroup from "@/components/cellGroup/cellGroup";
 import yButton from "@/components/button/button";
+import yFiled from "@/components/filed/filed";
 export default {
     name:"home",
     components:{
@@ -56,7 +70,10 @@ export default {
         yPopup,
         yCheckbox,
         yCheckboxGroup,
-        yDatepicker
+        yDatepicker,
+        yPicker,
+        yFiled,
+        yCellgroup
     },
     inject:['reload'],
     data(){
@@ -71,7 +88,7 @@ export default {
           showDialog:false,
           checkboxArr:[
             {
-              checked:true,
+              checked:false,
               name:'张三',
               disabled:false
             },
@@ -85,7 +102,36 @@ export default {
               name:'赵五',
               disabled:true
             },
-          ]
+          ],
+          city: {
+            'column1': [
+              {
+                value: '深圳',
+                disabled: true
+              },{
+                value: '湖南'
+              },{
+                value: '湖北'
+              },{
+                value: '香港',
+                disabled: true
+              },{
+                value: '上海'
+              },{
+                value: '北京'
+              }
+            ],
+            'column2':[
+              {
+                value:['福州', '厦门', '莆田', '三明', '泉州']
+              },
+              {
+                value:['杭州', '宁波', '温州', '嘉兴', '湖州']
+              }
+              
+            ]
+          },
+          showCity:false
         }
     },
     mounted(){
@@ -99,6 +145,18 @@ export default {
      })
    },
    methods:{
+     selectCity(){
+       this.showCity = !this.showCity
+     },
+     onChange(item,index){
+       console.log(item,index)
+     },
+     onConfirm(value){
+       console.log(value)
+     },
+     onCancel(value){
+       console.log(value)
+     },
      cancelDate(v){
        console.log(v)
      },

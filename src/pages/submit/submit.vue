@@ -2,33 +2,46 @@
     <div class="page">
         <y-navbar :title="title" @left-click="backRouter" left-text="返回"></y-navbar>.
         <div class="content">
-            <div class="cell">
-              <label for="">name:</label><input type="text" v-model="formData.name">
-            </div>
-            <div class="cell">
-              <label for="">url:</label><input type="text" v-model="formData.url">
-            </div>
-            <div class="cell">
-              <label for="">alexa:</label><input type="text" v-model="formData.alexa">
-            </div>
-            <div class="cell">
-              <label for="">country:</label><input type="text" v-model="formData.country">
-            </div>
-            <div class="cell">
-              <input type="button" value="新增" @click="addInfo">
-            </div>
+            <y-cellgroup>
+              <y-filed v-model="formData.name" placeholder="输入name" label="name:" error-message=""></y-filed>
+              <y-filed v-model="formData.url" placeholder="输入url" label="url:" error-message=""></y-filed>
+              <y-filed v-model="formData.alexa" placeholder="输入alexa" label="alexa:" error-message=""></y-filed>
+              <y-filed v-model="formData.country" placeholder="输入country" label="country:" error-message=""></y-filed>
+            </y-cellgroup>
+            <y-cell>
+              <y-button type="info" size="large" @click="addInfo">新增</y-button>
+            </y-cell> 
         </div>
-        
     </div>
 </template>
 
 <script>
 import yNavbar from "@/components/navbar/navbar";
+import yPicker from "@/components/datePicker/picker";
+import yDatepicker from "@/components/datePicker/datePicker";
+import yCheckboxGroup from "@/components/checkboxgroup/checkboxgroup";
+import yCheckbox from "@/components/checkbox/checkbox";
+import yPopup from "@/components/popup/popup"
+import ySwiperCell from "@/components/swiper_cell/swiper_cell";
+import yCell from "@/components/cell/cell";
+import yCellgroup from "@/components/cellGroup/cellGroup";
+import yButton from "@/components/button/button";
+import yFiled from "@/components/filed/filed";
 import { setTimeout } from 'timers';
 export default {
     name:"submit",
     components:{
-        yNavbar
+        yNavbar,
+        ySwiperCell,
+        yCell,
+        yButton,
+        yPopup,
+        yCheckbox,
+        yCheckboxGroup,
+        yDatepicker,
+        yPicker,
+        yFiled,
+        yCellgroup
     },
     data(){
         return {
