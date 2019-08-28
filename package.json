@@ -1,11 +1,26 @@
 {
-  "name": "vue-project",
+  "name": "yaxh",
+  "description": "基于vue的移动端ui框架",
   "version": "0.1.0",
-  "private": true,
+  "author": "yaozhaoyang",
+  "license":"MIT",
+  "keywords": [
+    "component",
+    "vue",
+    "vue ui",
+    "iview"
+  ],
+  "files":[
+    "public",
+    "src"
+  ],
+  "main": "dist/yaxh.common.js",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "yaui": "vue-cli-service build --target lib --name yaxh ./src/components/index.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -40,6 +55,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a523926245/Yui.git"
   },
   "postcss": {
     "plugins": {
