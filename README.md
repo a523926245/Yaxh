@@ -1,32 +1,35 @@
-# vue-project
-vue  UI框架练习,打造属于自己的ui框架！！！！
+# 介绍
+基于vue的ui移动端框架！
 
 
-## Project setup
+## 安装
 ```
-npm install
-```
+npm安装
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+npm install yaxh --S
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Run your tests
-```
-npm run test
-```
+引入
+#main.js
 
-### Lints and fixes files
-```
-npm run lint
-```
+<!-- 引入局部组件 -->
+import Vue from 'vue';
+import { Button } from 'vant';
+import 'yaxh/lib/yaxh.css';
+Vue.use(Button);
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<!-- 引入全部组件 -->
+import Vue from 'vue';
+import yaxh from "yaxh";
+import 'yaxh/lib/yaxh.css';
+
+Vue.use(yaxh)
+
+
+```
+##注意事项
+如果引入yaxh的样式支持编译失败，请确保安装了css loader依赖
+
+npm install css-loader --S 
+
 # Yaxh
