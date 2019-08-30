@@ -1,17 +1,17 @@
 import Vue from 'vue'
-import yIcon from "@/components/icon/icon";
-import yNavbar from "@/components/navbar/navbar";
-import yPicker from "@/components/datePicker/picker";
-import yDatepicker from "@/components/datePicker/datePicker";
-import yCheckboxGroup from "@/components/checkboxgroup/checkboxgroup";
-import yCheckbox from "@/components/checkbox/checkbox";
-import yPopup from "@/components/popup/popup"
-import ySwiperCell from "@/components/swiper_cell/swiper_cell";
-import yCell from "@/components/cell/cell";
-import yCellgroup from "@/components/cellGroup/cellGroup";
-import yButton from "@/components/button/button";
-import yFiled from "@/components/filed/filed";
-import yTabbar from "@/components/tabbar/tabbar";
+import yIcon from "./icon/icon.vue";
+import yNavbar from "./navbar/navbar.vue";
+import yPicker from "./datePicker/picker.vue";
+import yDatepicker from "./datePicker/datePicker.vue";
+import yCheckboxGroup from "./checkboxgroup/checkboxgroup.vue";
+import yCheckbox from "./checkbox/checkbox.vue";
+import yPopup from "./popup/popup.vue"
+import ySwiperCell from "./swiper_cell/swiper_cell.vue";
+import yCell from "./cell/cell.vue";
+import yCellgroup from "./cellGroup/cellGroup.vue";
+import yButton from "./button/button.vue";
+import yFiled from "./filed/filed.vue";
+import yTabbar from "./tabbar/tabbar.vue";
 const Components = {
     yIcon,
     yNavbar,
@@ -27,12 +27,36 @@ const Components = {
     yFiled,
     yTabbar
 }
-Object.keys(Components).forEach(name => {
+let MyPlugin = {
+	version: '1.0.0'
+};
+
+MyPlugin.install = function(Vue) {
+	if (this.installed) return;
+	Object.keys(Components).forEach(name => {
     Vue.component(name, Components[name])
 })
+};
 
-Object.keys(Components).forEach(Component => {
-    Vue.use(Component);
-})
+// auto install
+if (typeof window !== 'undefined' && window.Vue) {
+	MyPlugin.install(window.Vue);
+}
 
-export default Components
+Vue.use(MyPlugin)
+
+export default MyPlugin
+// Object.keys(Components).forEach(name => {
+//     Vue.component(name, Components[name])
+// })
+// export default Components;
+// const install = (Vue) =>{
+//     Object.keys(Components).forEach(Component => {
+//         Vue.use(Component);
+//     })
+// }
+
+// export default {
+//     install,
+//     ...Components
+// }

@@ -1,23 +1,23 @@
 {
   "name": "yaxh",
   "description": "基于vue的移动端ui框架",
-  "version": "0.1.1",
+  "version": "0.1.8",
   "author": "yaozhaoyang",
-  "license":"MIT",
+  "license": "MIT",
   "keywords": [
     "component",
     "vue",
     "vue ui",
     "iview"
   ],
-  "files":[
+  "files": [
     "src/assets",
     "src/components",
     "src/mixin",
     "src/utils",
-    "dist"
+    "lib"
   ],
-  "main": "dist/yaxh.common.js",
+  "main": "./lib/yaxh.umd.min.js",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -31,7 +31,8 @@
     "qs": "^6.7.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "yaxhtest": "^0.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",

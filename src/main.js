@@ -8,6 +8,7 @@ import publicMixin from "./mixin/mixin";
 import Toast from "./components/toast";
 import Dialog from "./components/dialog"
 
+
 Vue.prototype.$toast = Toast;
 Vue.prototype.$dialog = Dialog;
 

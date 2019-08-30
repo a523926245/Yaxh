@@ -31,7 +31,7 @@ module.exports = {
  },
 
  publicPath: undefined,
- outputDir: undefined,
+ outputDir: 'lib',
  assetsDir: undefined,
  parallel: undefined,
 
@@ -39,7 +39,7 @@ module.exports = {
    'style-resources-loader': {
      preProcessor: 'less',
      patterns: [
-        path.resolve(__dirname, "./src/assets/var.less")
+        path.resolve(__dirname, "./src/config/var.less")
      ]
    }
  }

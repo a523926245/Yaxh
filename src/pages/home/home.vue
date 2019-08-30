@@ -42,8 +42,6 @@
               show-toolbar>
             </y-picker>
           </y-popup>
-
-          
         </div>
     </div>
 </template>
@@ -73,7 +71,7 @@ export default {
         yDatepicker,
         yPicker,
         yFiled,
-        yCellgroup
+        yCellgroup,
     },
     inject:['reload'],
     data(){
