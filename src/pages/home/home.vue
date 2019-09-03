@@ -13,6 +13,7 @@
            </template>
            <!-- y-button -->
            <y-button @click="togglePopup">popup按钮</y-button>
+           <y-button to="/about" icon="search" bgcolor="blue" color="#fff" round>123</y-button>
            <!-- y-popup -->
            <!-- y-checkbox -->
            <!-- <y-checkbox-group v-model="results" @change="resultChange">
@@ -178,6 +179,7 @@ export default {
          title:"提示",
          content:"确定删除这条信息吗？",
          beforeClose:(action,done)=>{
+           console.log(action)
            if (action == 'confirm') {
              done()
              this.$http("post", "/delete", {
@@ -193,7 +195,7 @@ export default {
                  console.log(err)
                })
            } else {
-             done()
+             done(false)
            }
          }
        })

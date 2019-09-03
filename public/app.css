@@ -46,7 +46,7 @@
     clear: both;
     content: '';
   }
-  [class*='y-hairline'] {
+  /* [class*='y-hairline'] {
     position: relative;
   }
   [class*='y-hairline']::after {
@@ -61,7 +61,7 @@
     border: 0 solid #ebedf0;
     -webkit-transform: scale(0.5);
             transform: scale(0.5);
-  }
+  } */
 
   .y-hairline--top::after {
     border-top-width: 1px;
