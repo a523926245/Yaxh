@@ -97,6 +97,9 @@ export default {
     &.active{
         color:#ff0000
     }
+    &__text{
+        margin-top:5px;
+    }
   }
 }
 </style>

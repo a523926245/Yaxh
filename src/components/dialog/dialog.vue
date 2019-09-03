@@ -48,7 +48,7 @@ export default {
     watch:{
         value:{
             handler(val){
-                const type = val ? 'open' : 'onClose';
+                const type = val ? 'open' : 'close';
                 this[type](this.maskClose);
             }
         }
@@ -75,7 +75,7 @@ export default {
             }
           })
         }
-        this.close(this.maskClose)
+        // this.close(this.maskClose)
         if(this.callback){
           this.callback(action)
         }

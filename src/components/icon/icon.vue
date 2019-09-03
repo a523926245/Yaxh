@@ -25,7 +25,7 @@ export default {
 .y-icon {
     position: relative;
     font: 14px/1 "y-icon";
-    font-size: inherit;
+    font-size: 16px;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     line-height: inherit;
