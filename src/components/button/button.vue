@@ -1,5 +1,6 @@
 <template>
     <button :disabled="disabled" 
+    :style="{backgroundColor:bgcolor,color:color}"
     class="y-button" 
     :class="[type ? 'y-button--'+type : ''
     ,round ? 'y-button--round' : ''
@@ -8,6 +9,7 @@
     ,size ? 'y-button--'+size : 'y-button--normal']" 
     :value="text"
     @click="clickEvent">
+    <y-icon v-if="icon" :name="icon"></y-icon>  
     <span v-if="$slots.default || text" class="y-button__text">
         <slot>
             <span class="y-button__text">{{text}}</span>
@@ -17,6 +19,7 @@
 </template>
 
 <script>
+import yIcon from "@/components/icon/icon";
 export default {
 /**
  * yButton
@@ -27,12 +30,17 @@ export default {
  * @param {String} [text] - 按钮value值
  * @param {Boolean} [plain] - 是否简约风格，白底有色边框模式
  * @param {Boolean} [round] - 按钮是否圆角
+ * @param {String} [bgcolor] - 按钮颜色
+ * @param {String} [to] - 路由跳转链接
+ * @param {String} [url] - 按钮跳转外部链接
  */
     name:"yButton",
     props:{
         size:String,
         disabled:Boolean,
         icon:String,
+        color:String,
+        bgcolor:String,
         type:{
             type:String,
             default:'default'
@@ -48,7 +56,12 @@ export default {
         round:{
             type:Boolean,
             default:false
-        }
+        },
+        to:String,
+        url:String
+    },
+    components:{
+      yIcon
     },
     data(){
         return{
@@ -58,13 +71,21 @@ export default {
     methods:{
       clickEvent(e){
         this.$emit('click',e)
+        if(this.to){
+          this.$router.push({
+            path:this.to
+          })
+        }
+        if(this.url){
+          window.location.href = this.url
+        }
       }
     }
 }
 </script>
 
 <style lang="less">
-    .y-button{
+.y-button{
   position: relative;
   display: inline-block;
   box-sizing: border-box;
@@ -77,7 +98,14 @@ export default {
   border-radius: @button-border-radius;
   -webkit-appearance: none;
   -webkit-text-size-adjust: 100%;
-
+  .y-icon{
+    display: inline-block;
+    min-width: 1em;
+    font-size: 1.2em;
+    line-height: inherit;
+    vertical-align: top;
+    margin-left:5px;
+  }
   &::before {
     position: absolute;
     top: 50%;
