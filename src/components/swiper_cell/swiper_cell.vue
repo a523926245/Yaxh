@@ -2,7 +2,7 @@
     <div class="swiper_cell" >
         <div ref="swiper_cell" class="swiper_cell_wrapper" @touchstart="moveStart" @touchend="moveEnd" @click="clickEvent">
             <slot>
-                <cell title="标题2"></cell>
+                <cell :title="title" :value="value"></cell>
             </slot>
             <div v-if="$slots.right" ref="right" class="swiper_cell_right">
                 <slot name="right">
@@ -22,6 +22,14 @@ export default {
         cell
     },
     props:{
+        value:{
+            type:String,
+            default:'内容'
+        },
+        title:{
+            type:String,
+            default:'标题'
+        },
         // 是否禁用滑动
         disabled:{
             type:Boolean,
