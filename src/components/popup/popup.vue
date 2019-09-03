@@ -49,7 +49,7 @@ export default {
     background-color: @popup-background-color;
     transition: @popup-transition;
     -webkit-overflow-scrolling: touch;
-
+    z-index:99;
     &--center {
       top: 50%;
       left: 50%;
@@ -82,7 +82,7 @@ export default {
 
     &--bottom {
       bottom: 0;
-      left: 0;
+      left: 50%;
       width: 100%;
 
       &.y-popup--round {
