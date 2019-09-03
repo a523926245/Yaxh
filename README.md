@@ -14,9 +14,9 @@ npm install yaxh --S
 ```
 #引入局部组件
 import Vue from 'vue';
-import { Button } from 'vant';
+import { yButton } from 'yaxh';
 import 'yaxh/lib/yaxh.css';
-Vue.use(Button);
+Vue.use(yButton);
 ```
 ```
 #引入全部组件

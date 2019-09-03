@@ -78,7 +78,7 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .y-field {
   &__label {
     flex: none;

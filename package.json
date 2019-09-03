@@ -1,7 +1,7 @@
 {
   "name": "yaxh",
   "description": "基于vue的移动端ui框架",
-  "version": "0.1.8",
+  "version": "0.2.4",
   "author": "yaozhaoyang",
   "license": "MIT",
   "keywords": [
@@ -11,7 +11,7 @@
     "iview"
   ],
   "files": [
-    "src/assets",
+    "src/style",
     "src/components",
     "src/mixin",
     "src/utils",
@@ -39,6 +39,7 @@
     "@vue/cli-plugin-eslint": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
     "babel-eslint": "^10.0.1",
+    "css-loader": "^3.2.0",
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",

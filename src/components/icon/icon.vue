@@ -21,9 +21,14 @@ export default {
     }
 }
 </script>
-
 <style lang="less">
 .y-icon {
+    position: relative;
+    font: 14px/1 "y-icon";
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    line-height: inherit;
   &__image {
     width: 1em;
     height: 1em;

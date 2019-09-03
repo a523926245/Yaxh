@@ -12,6 +12,8 @@ import yCellgroup from "./cellGroup/cellGroup.vue";
 import yButton from "./button/button.vue";
 import yFiled from "./filed/filed.vue";
 import yTabbar from "./tabbar/tabbar.vue";
+import yToast from "./toast/index.js";
+import yDialog from "./dialog/index.js";
 const Components = {
     yIcon,
     yNavbar,
@@ -27,6 +29,8 @@ const Components = {
     yFiled,
     yTabbar
 }
+Vue.prototype.$toast = yToast;
+Vue.prototype.$dialog = yDialog;
 let MyPlugin = {
 	version: '1.0.0'
 };

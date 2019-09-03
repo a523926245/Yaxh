@@ -1,16 +1,16 @@
 <template>
-    <div class="van-hairline--top-bottom van-tabbar van-tabbar--fixed">
-        <div class="van-tabbar-item" 
+    <div class="y-hairline--top-bottom y-tabbar y-tabbar--fixed">
+        <div class="y-tabbar-item" 
         :class="[activeNav == index ? 'active' : '']" 
         v-for="(item,index) in list" :index="index" :key="index"
         @click="clickItem(index,item.router)"
         >
-            <div class="van-tabbar-item__icon">
+            <div class="y-tabbar-item__icon">
                 <template v-if="item.icon">
-                    <i class="van-icon" :class="[`van-icon-${item.icon}`]"></i>
+                    <i class="y-icon" :class="[`y-icon-${item.icon}`]"></i>
                 </template>
             </div>
-            <div class="van-tabbar-item__text">{{item.text}}</div>
+            <div class="y-tabbar-item__text">{{item.text}}</div>
         </div>
     </div>
 </template>
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="less">
-.van-tabbar {
+.y-tabbar {
   display: flex;
   width: 100%;
   height: @tabbar-height;
@@ -85,7 +85,7 @@ export default {
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);
   }
-  .van-tabbar-item{
+  .y-tabbar-item{
     display: flex;
     flex: 1;
     flex-direction: column;

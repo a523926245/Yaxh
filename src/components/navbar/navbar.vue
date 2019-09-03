@@ -51,7 +51,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .van-nav-bar{
     position: relative;
     height: 46px;

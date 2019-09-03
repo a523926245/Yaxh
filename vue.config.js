@@ -27,7 +27,8 @@ module.exports = {
  runtimeCompiler:undefined,
 
  css: {
-   modules: true
+   extract:true,
+   modules: false
  },
 
  publicPath: undefined,
@@ -39,7 +40,7 @@ module.exports = {
    'style-resources-loader': {
      preProcessor: 'less',
      patterns: [
-        path.resolve(__dirname, "./src/config/var.less")
+        path.resolve(__dirname, "./src/style/index.less")
      ]
    }
  }
