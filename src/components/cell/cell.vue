@@ -126,6 +126,7 @@ export default {
     color: @cell-label-color;
     font-size: @cell-label-font-size;
     line-height: @cell-label-line-height;
+    margin-left:@cell-label-margin-right
   }
   &__title,
   &__value {
