@@ -17,7 +17,9 @@
                 <span v-if="value">{{value}}</span>
             </slot>
         </div>
-        <i v-if="isLink">></i>
+        <i v-if="isLink">
+          <y-icon name="arrow" color="#ccc"></y-icon>
+        </i>
         <slot name="righticon" @click="clickRightIcon">
             <div class="y-field__right-icon" v-if="rightIcon" >
                 <y-icon :name="rightIcon"></y-icon>
