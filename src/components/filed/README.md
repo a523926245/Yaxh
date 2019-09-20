@@ -1,26 +1,30 @@
 ## API
 
-### CellGroup Props
+### Image Props
 
 | Attribute | Description | Type | Default |
 |------|------|------|------|
-| title | Group title | `string` | - |
-| border | Whether to show outer border | `boolean` | `true` |
+| url | 图片资源路径 | `string` | - |
+| showLoading | 是否开启加载提示 | `string` | false |
+| fit | 图片填充模式 | `string` | `none` |
+| width | 图片宽度 | `string | number` | - |
+| height | 图片高度 | `string | number` | - |
 
-### Cell Props
-
-| Attribute | Description | Type | Default |
+### Image fit
+| Attribute | Description 
 |------|------|------|------|
-| type | input file type | `string` | `text` |
-| label | input filed label name | `string` | `标题` |
-| required | which must be write? | `boolean` | `false` |
-| value | input value | `string | number` | - |
-| rightIcon |  right icon  | `string` | - |
-| leftIcon | left icon | `string` | - |
-| disabled | is disabled input file | `boolean` | `false` |
-| placeholder | input placehlober text  | `string` | - |
-| errorMessage | error message notice text | `string` | - |
-| labelAlign | label text align | `string` | `left` |
+| contain  | 保持宽高缩放图片，使图片的长边能完全显示出来
+| cover | 保持宽高缩放图片，使图片的短边能完全显示出来，裁剪长边
+| fill | 拉伸图片，使图片填满元素
+| none | 保持图片原有尺寸
+| scale-down | 取none或contain中较小的一个
 
-### Cell Event
-| input
+### Image slot
+| slotName | Description 
+|------|------|------|------|
+| loading  | 图片加载中自定义slot
+
+### Image Event
+| click  | 图片点击事件
+| loaded  | 图片加载完成事件
+| error  | 图片加载出错事件
