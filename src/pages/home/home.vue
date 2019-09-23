@@ -4,7 +4,7 @@
         <div class="content">
           <template v-for="(item,index) in result" :index="index">
             <y-swiper-cell :key="index" :index="index">
-                <y-cell :title="item.name" :value="item.url"></y-cell>
+                <y-cell :title="item.name" :value="item.url" is-link></y-cell>
                 <div slot="right">
                     <y-button class="edit" @click="clickEdit">修改</y-button>
                     <y-button class="delete" @click="clickDelete(item.id)">删除</y-button>
@@ -43,12 +43,16 @@
               show-toolbar>
             </y-picker>
           </y-popup>
+          <!-- <y-image fit="cover" width="8rem" height="8rem" showLoading url="https://img.yzcdn.cn/vant/cat.jpeg">
+            <div slot="loading">加载中</div>
+          </y-image> -->
         </div>
     </div>
 </template>
 
 <script>
 import yPicker from "@/components/datePicker/picker";
+import yImage from "@/components/image/image";
 import yDatepicker from "@/components/datePicker/datePicker";
 import yCheckboxGroup from "@/components/checkboxgroup/checkboxgroup";
 import yCheckbox from "@/components/checkbox/checkbox";
@@ -73,6 +77,7 @@ export default {
         yPicker,
         yFiled,
         yCellgroup,
+        yImage
     },
     inject:['reload'],
     data(){
