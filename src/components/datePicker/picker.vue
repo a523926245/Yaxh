@@ -64,9 +64,13 @@
 <script>
 import { pickerMixin } from "@/mixin/picker";
 import { type } from 'os';
+import cityPicker from "./cityPicker";
 export default {
     name:"yPicker",
     mixins:[pickerMixin],
+    components:{
+        cityPicker
+    },
     props:{
         // 初始化数据 default data
         columns:{
@@ -81,7 +85,7 @@ export default {
     data(){
         return{
             actives:[0,0],
-            innerValue:this.columns[this.defaultIndex] ? this.columns[this.defaultIndex] : null
+            innerValue:[]
         }
     },
     computed:{
@@ -116,38 +120,24 @@ export default {
             this.actives.splice(columnsIndex,1,index)
 
             this.getInnerValue(columnsIndex,index);
-            this.innerValue = value;
-            this.onChange(value,index,this)
+
+            // this.onChange(value,index,this)
         },
         getInnerValue(columnsIndex,index){
             let active = this.actives;
-            let arr = new Array();
+            console.log(active)
             let oValue = this.columns;
-            let objArr = Object.keys(oValue)
-            active.map((val,acindex) => {
-                // console.log(val,acindex)
-                console.log(oValue[objArr[acindex]].value)
-                if(Array.isArray(oValue[objArr[acindex]].value)){
-                    // arr[acindex] = oValue[objArr[acindex]].value[index]
+            let oValueKey = Object.keys(oValue);
+            // 遍历出当前活动项的值
+            active.forEach((item,num) =>{
+                console.log(oValue[oValueKey[num]][item].value)
+                if(Array.isArray(oValue[oValueKey[num]][item].value)){
+                    console.log(oValue[oValueKey[num]][item].value)
                 }
-                arr[acindex] = oValue[objArr[acindex]].value
             })
-
-
-            // console.log(arr)
+            // console.log(this.innerValue)
 
         },
-        // handlerClick(value,columnsIndex,index){
-        //     if(value.disabled){
-        //        return false;
-        //     }
-        //     if(columnsIndex > -1){
-        //         let activeColumn = `activeColumn${columnsIndex}`;
-        //         this[activeColumn] = index
-        //     }
-        //     this.innerValue = value;
-        //     this.onChange(value,index,this)
-        // },
         pickChange(value){
 
         }

@@ -37,7 +37,7 @@
           <y-popup v-model="showCity" position="bottom">
             <y-picker 
               :columns="city"
-              @change="onChange"
+              
               @confirm="onConfirm"
               @cancel="onCancel"
               show-toolbar>
@@ -152,8 +152,8 @@ export default {
      selectCity(){
        this.showCity = !this.showCity
      },
-     onChange(item,index){
-       console.log(item,index)
+     onChange(e){
+       console.log(e)
      },
      onConfirm(value){
        console.log(value)
