@@ -107,62 +107,47 @@ export default {
               disabled:true
             },
           ],
-          city:{
-              '浙江': ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-              '福建': ['福州', '厦门', '莆田', '三明', '泉州']
-          },
           city: [
-            {
-              name : '深圳',
-              value: 'sz',
-              disabled: true,
-              child: [{
-                name : '深圳01',
-                value: 'sz01',
+            [
+              {
+                name : '深圳1',
+                value: 'sz1',
                 disabled: true
-              }, {
-                name : '深圳02',
-                value: 'sz02',
-              }, {
-                name : '深圳03',
-                value: 'sz03'
-              }, {
-                name : '深圳04',
-                value: 'sz04',
+              },
+              {
+                name : '深圳2',
+                value: 'sz2',
+              },
+              
+              {
+                name : '深圳3',
+                value: 'sz3',
+              },
+              
+              {
+                name : '深圳4',
+                value: 'sz4',
+              }
+            ],
+            [
+              {
+                name : '深圳-1',
+                value: 'sz-1',
+              },
+              {
+                name : '深圳-2',
+                value: 'sz-2',
+              },
+              {
+                name : '深圳-3',
+                value: 'sz-3',
                 disabled: true
-              }, {
-                name : '深圳05',
-                value: 'sz05'
-              }, {
-                name : '深圳06',
-                value: 'sz06'
-              }]
-            },
-            {
-              name : '湖南',
-              value: 'hl',
-              child: [{
-                  name : '湖南01',
-                  value: 'hl01',
-                },
-                {
-                  name : '湖南02',
-                  value: 'hl02',
-                },
-                {
-                  name : '湖南03',
-                  value: 'hl03',
-                },
-                {
-                  name : '湖南04',
-                  value: 'hl04',
-                },
-                {
-                  name : '湖南05',
-                  value: 'hl05',
-                }
-              ]
-            }
+              },
+              {
+                name : '深圳-4',
+                value: 'sz-4',
+              }
+            ]
           ],
           showCity:false
         }

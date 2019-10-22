@@ -27,7 +27,7 @@ export default {
         },
         // 图片宽度
         width:String,
-        // 图片告诉
+        // 图片高度
         height:String
 
     },

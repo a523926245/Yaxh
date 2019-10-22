@@ -8,60 +8,21 @@
             <div class="y-picker__columns" style="height:220px;">
                 <template v-for="(item,index) in columns" :index="index">
                     <div class="y-picker-column" :key="index">
-                            <ul class="y-picker-column__wrapper" >
-                                    <template v-for="(childItem,childIndex) in item" :index="childIndex" >
-                                        <template v-if="typeof childItem.child == 'object'">
-                                            <template  v-for="(secondItem,secondIndex) in childItem.lists" :index="secondIndex">
-                                                <li class="y-ellipsis y-picker-column__item" 
-                                                :key="secondItem" 
-                                                :index="secondIndex"
-                                                v-if="secondIndex != 2"
-                                                :class="[childItem.disabled ? 'y-picker-column__item--disabled' : '']" 
-                                                style="line-height:44px;"
-                                                @click="handlerClick(secondItem,index,secondIndex)">
-                                                    {{secondItem.value}}
-                                                </li>
-                                                <li v-else class="y-ellipsis y-picker-column__item" 
-                                                :key="secondItem" :index="secondIndex"
-                                                :class="[childItem.disabled ? 'y-picker-column__item--disabled' : 'y-picker-column__item--selected']" 
-                                                style="line-height:44px;"
-                                                @click="handlerClick(secondItem,index,secondIndex)">
-                                                    {{secondItem.value}}
-                                                </li>
-                                            </template>  
-                                        </template>
-                                        <template v-else>
-                                            <template v-if="childIndex != 2">
-                                                <li class="y-ellipsis y-picker-column__item" 
-                                                :class="[childItem.disabled ? 'y-picker-column__item--disabled' : '']" 
-                                                style="line-height:44px;"
-                                                :key="childItem.value" 
-                                                :index="childIndex"
-                                                @click="handlerClick(childItem,index,childIndex)">
-                                                    {{childItem.value}}
-                                                </li>
-                                            </template>
-                                            <template v-else>
-                                                <li class="y-ellipsis y-picker-column__item" 
-                                                :class="[childItem.disabled ? 'y-picker-column__item--disabled' : 'y-picker-column__item--selected']" 
-                                                style="line-height:44px;"
-                                                :key="childItem.value" 
-                                                :index="childIndex"
-                                                @click="handlerClick(childItem,index,childIndex)">
-                                                    {{childItem.value}}
-                                                </li>
-                                            </template>    
-                                        </template>
-                                    </template>
-                            </ul>
+                        <ul class="y-picker-column__wrapper">
+                            <li class="y-ellipsis y-picker-column__item" style="line-height:44px;"
+                            :class="[child.disabled ? 'y-picker-column__item--disabled' : '',cIndex == '2' ? 'y-picker-column__item--selected' : '']" 
+                            @click="pickerChange(child,index,cIndex)"
+                            v-for="(child,cIndex) in item" :index="cIndex" :key="child.value">{{child.name}}</li>
+                        </ul>
                     </div>
-                </template>    
+                </template>
             </div>
         
     </div>
 </template>
 
 <script>
+import { PICKER_TYPE , IS_GANGGED_PICKER } from "./pickerType.js";
 import { pickerMixin } from "@/mixin/picker";
 import { type } from 'os';
 import cityPicker from "./cityPicker";
@@ -79,41 +40,111 @@ export default {
                 return []
             }
         },
+        active:{
+            type:Array,
+            default:() =>{
+                return []
+            }
+        },
         // 展示顶部栏 show tabbar
-        showToolbar:Boolean
+        showToolbar:Boolean,
+        // picker类型:default,time,area,默认default
+        type:{
+            type:String,
+            default:PICKER_TYPE.defaultPicker
+        },
+        // 是否联动:默认联动
+        ganged:{
+            type:String,
+            default:IS_GANGGED_PICKER.gangedPicker
+        }
     },
     data(){
         return{
-            columnsData:null,
-            actives:[0,0],
+            // 当前picker活动项
+            pickerActive:this._initAvtive(),
+            // 当前picker活动数据外递
             innerValue:[]
         }
     },
-    computed:{
-
-    },
-    created(){
-        console.log(this.columns)
-        // this.formateColums(this.columns)
+    watch:{
+        columns:{
+          handler(val){
+              if(val){
+                 this._initAvtive()
+              }
+          },
+          deep:true
+        },
     },
     methods:{
-        // 扁平化传入数据
-        // formateColums(columnData){
-        //     return [].concat(columnData.map( item =>{
-        //         return item.name ;
-        //     }))
-        //     console.log(a)
-        // },
-        handlerClick(value,columnsIndex,index){
-            if(value.disabled){
-               return false;
+        // 初始化默认选择项
+        _initAvtive(){
+            // 如果没有主动传输默认活动选项，则根据当前传入数据的长度自动生成一个,默认选中每项的第一个
+            let act = [];
+            if(this.active.length){
+                return this.active
             }
+            let len = this.getArrayLen(this.columns);
+            if(len){
+                for(let j = 0; j<len; j++){
+                    act[j] = 0
+                }
+            }
+            else{
+                act = [0]
+            }
+            // 初始化,默认选择项，默认选中内容
+            this.pickerActive = act;
+            this.getInnerValue()
+            return act;
         },
-        getInnerValue(columnsIndex,index){
-          
+        /**
+         * picker选项变化
+         * child - {object} :当前选中项的对象内容
+         * pFndex - {number} :当前选中项在传入数据中的1级索引
+         * cIndex - {number} :当前选中项在传入数据中的2级索引
+         */
+        pickerChange(child,pFndex,cIndex){
+            if(child.disabled){
+                return
+            }
+            this.pickerActive[pFndex] = cIndex;
+            this.getInnerValue()
         },
-        pickChange(value){
-
+        /**
+         * 获取当前活动picker值
+         */
+        getInnerValue(){
+            console.log('getInnerValue')
+            let res = [];
+            this.pickerActive.forEach((el ,j) =>{
+                if(this.columns[j][el].disabled){
+                    this.$toast({
+                        message:'默认项被禁用'
+                    })
+                }
+                res[j] = this.columns[j][el]
+            })
+            this.$nextTick(() =>{
+                this.innerValue = res;
+            })
+        },
+        /**
+         * 滚动Picker
+         */
+        rollColumn(){
+            let active = this.pickerActive;
+        },
+        /**
+         * 计算数组长度
+         * arr - {Array}:需要计算长度的数组对象
+         */
+        getArrayLen(arr) {
+            if(arr.length){
+                return arr.length
+            }
+            return 0
         }
     }
 }

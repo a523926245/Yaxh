@@ -6,6 +6,7 @@ import home from "@/pages/home/home";
 import about from "@/pages/about/about";
 import submit from "@/pages/submit/submit";
 import change from "@/pages/change/change";
+import musicList from "@/pages/music/musicList";
 
 Vue.use(Router);
 
@@ -57,6 +58,16 @@ const router = new Router({
 		    },
 			hidden:false,
 			component: change
+		},
+		{
+			path: '/musicList',
+			name: 'musicList',
+			meta:{
+		      	title:"音乐列表",
+		      	auth:["admin","person","manager"]
+		    },
+			hidden:false,
+			component: musicList
 		}
     ]
 

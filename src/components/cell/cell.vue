@@ -105,6 +105,9 @@ export default {
   font-size: @cell-font-size;
   line-height: @cell-line-height;
   background-color: @cell-background-color;
+  .y-image{
+    margin-right:5px;
+  }
 
   &:not(:last-child)::after{
       position: absolute;

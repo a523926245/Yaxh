@@ -46,9 +46,9 @@ export default {
             router:"/submit"
         },
         {
-            icon:"setting-o",
-            text:"日志",
-            router:""
+            icon:"service-o",
+            text:"音乐列表",
+            router:"/musicList"
         },
        ]
      }
@@ -81,7 +81,7 @@ export default {
   word-wrap: break-word
 }
 #app {
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   height:100%;
   top: 0;
@@ -101,5 +101,13 @@ export default {
     left:0;
     right:0;
     overflow-y: scroll
+}
+.page{
+    position: absolute;
+    top:0;
+    bottom:60px;
+    left:0;
+    right:0;
+    overflow:hidden
 }
 </style>
