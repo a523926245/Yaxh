@@ -8,7 +8,6 @@ const pool = mysql.createPool({
     port: '3306',                   
     database: 'mysql' 
 })
-
 /**
  *封装查询数据方法
  * @param {Array} sqlParams :查询参数,查询单个或者多个数据库中的字段
@@ -26,8 +25,8 @@ const query = function(sqlParams,dataBase,sqlCondion){
         pool.getConnection((err,rows) =>{
             if(err){
                 data.result.info = error;
-                data.resultCode = "9999";
-                data.resultMsg = "出现异常"
+                data.resultCode = "0000";
+                data.resultMsg = "ok"
                 reject(data);
                 return;
             }
@@ -204,5 +203,5 @@ module.exports = {
     query,
     insert,
     update,
-    remove
+    remove,
 }

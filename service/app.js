@@ -43,17 +43,19 @@ app.use(logger("combined",{
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cookieParser());
-
 /**
  * 路由（接口地址）开始 存放在./routes目录下
  */
 let routes = require("./routes/router")
 let index = require('./routes/index');//home page接口
-let about = require('./routes/about');//home page接口
+let about = require('./routes/about');//about page接口
+let music = require('./routes/getMusic');//about page接口
 
 app.use(routes);
 app.use(index); //在app中注册routes该接口 
 app.use(about); //在app中注册routes该接口 
+app.use(music); //在app中注册routes该接口 
+
 
 
 // 错误处理程序

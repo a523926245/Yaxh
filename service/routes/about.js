@@ -53,7 +53,7 @@ router.post('/change', (req, res, next) => {
     })
 });
 
-// 修改
+// 删除
 router.post('/delete', (req, res, next) => {
     // 修改的参数/属性/字段
     let reqBody = req.body;

@@ -10,12 +10,14 @@
   "author": "yaozhaoyang",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^12.7.12",
     "body-parser": "^1.19.0",
     "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "request": "^2.88.0"
   }
 }
